@@ -10,7 +10,7 @@ import {
   Zap,
   Droplets,
 } from "lucide-react";
-import civilEngineeringImg from "@/assets/services/civil-engineering.png";
+import civilEngineeringImg from "@/assets/industries/civil-engineering-services.jpg";
 import operationMaintenanceImg from "@/assets/services/operation-maintenance.png";
 import mechanicalFabricationImg from "@/assets/services/mechanical-fabrication.png";
 import industrialPlantMaintenanceImg from "@/assets/services/industrial-plant-maintenance.png";
@@ -39,7 +39,7 @@ export const contractingServices: ContractingService[] = [
     desc: "We execute all types of civil works including foundations, structures, and infrastructure projects. Our team ensures quality, safety, and adherence to industry standards at every stage.",
     icon: HardHat,
     image: civilEngineeringImg,
-    imageAlt: "Construction engineers reviewing a civil engineering site at sunrise",
+    imageAlt: "MJTC supervisor on a civil engineering construction site at sunset",
     layout: "featured",
     imageSide: "right",
     tagline: "Foundations to infrastructure",

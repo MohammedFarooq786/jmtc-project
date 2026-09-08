@@ -12,6 +12,7 @@ import nexgenLogo from "@/assets/brands/nexgen.png";
 import pageleLogo from "@/assets/brands/pagele.png";
 import soundcraftLogo from "@/assets/brands/soundcraft.png";
 import vairitasLogo from "@/assets/brands/vairitas.png";
+import wassertekLogo from "@/assets/brands/wassertek.png";
 
 export type Brand = {
   name: string;
@@ -33,6 +34,7 @@ export const brandPartners: Brand[] = [
   { name: "PAGELE", logo: pageleLogo, bg: "#ffffff" },
   { name: "Vairitas", logo: vairitasLogo, bg: "#ffffff" },
   { name: "APG", logo: apgLogo, bg: "#ffffff" },
+  { name: "Wassertek", logo: wassertekLogo, bg: "#ffffff" },
   { name: "Hyster-Yale", logo: hysterYaleLogo, bg: "#ffffff" },
   { name: "Dahua", logo: dahuaLogo, bg: "#ffffff" },
 ];
@@ -41,6 +43,7 @@ export const brandPartners: Brand[] = [
 export const tradingBrandPartners: Brand[] = [
   { name: "Multispan", logo: multispanLogo, bg: "#ffffff" },
   { name: "APG", logo: apgLogo, bg: "#ffffff" },
+  { name: "Wassertek", logo: wassertekLogo, bg: "#ffffff" },
   { name: "NexGen", logo: nexgenLogo, bg: "#ffffff" },
   { name: "PAGELE", logo: pageleLogo, bg: "#ffffff" },
   { name: "JBL", logo: jblLogo, bg: "#ffffff" },

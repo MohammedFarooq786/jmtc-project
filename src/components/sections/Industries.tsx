@@ -6,32 +6,35 @@ import {
   Forklift,
   HardHat,
   Package,
-  Settings,
+  Shield,
   Speaker,
   Wrench,
+  Zap,
+  type LucideIcon,
 } from "lucide-react";
 import mepEngineeringImg from "@/assets/industries/mep-engineering.jpg";
-import industrialPlantsImg from "@/assets/industries/industrial-plants.jpg";
-import utilitiesImg from "@/assets/industries/utilities.jpg";
+import civilEngineeringServicesImg from "@/assets/industries/civil-engineering-services.jpg";
+import eiaProductsImg from "@/assets/industries/electrical-instrumentation.jpg";
 import dewateringPumpsImg from "@/assets/industries/dewatering-pumps.jpg";
-import heroIndustrialImg from "@/assets/hero-industrial.jpg";
-import contractingImg from "@/assets/contracting.jpg";
+import industrialProjectsMaintenanceImg from "@/assets/industries/industrial-projects-maintenance.jpg";
 import tradingImg from "@/assets/trading.jpg";
 import audioVisualImg from "@/assets/trading/audio-visual.png";
+import safetyPpeImg from "@/assets/industries/safety-ppe.jpg";
 import { SectionHeading } from "@/components/SectionHeading";
 import { industries } from "@/data/site";
 
-const icons = [Wrench, Factory, Building2, HardHat, Settings, Forklift, Package, Speaker];
-
-const industryBackgrounds: Record<string, string> = {
-  "MEP Engineering Services": mepEngineeringImg,
-  Infrastructure: industrialPlantsImg,
-  "Structural Engineering Services": utilitiesImg,
-  "Civil Engineering Services": dewateringPumpsImg,
-  "Industrial Engineering & Maintenance Services": heroIndustrialImg,
-  "Equipment Renting Service": contractingImg,
-  "Material Supply": tradingImg,
-  "Professional Sound and Engineering": audioVisualImg,
+const industryVisuals: Record<string, { image: string; icon: LucideIcon }> = {
+  "mep-engineering-services": { image: mepEngineeringImg, icon: Wrench },
+  "civil-engineering-services": { image: civilEngineeringServicesImg, icon: HardHat },
+  "industrial-engineering-maintenance-services": {
+    image: industrialProjectsMaintenanceImg,
+    icon: Factory,
+  },
+  "equipment-renting-service": { image: dewateringPumpsImg, icon: Forklift },
+  "material-supply": { image: tradingImg, icon: Package },
+  "structural-engineering-services": { image: eiaProductsImg, icon: Zap },
+  "professional-sound-and-engineering": { image: audioVisualImg, icon: Speaker },
+  infrastructure: { image: safetyPpeImg, icon: Shield },
 };
 
 export function Industries() {
@@ -45,8 +48,9 @@ export function Industries() {
         />
         <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {industries.map((industry, idx) => {
-            const Icon = icons[idx % icons.length];
-            const bg = industryBackgrounds[industry.title];
+            const visual = industryVisuals[industry.slug];
+            const Icon = visual?.icon ?? Building2;
+            const bg = visual?.image;
             return (
               <motion.div
                 key={industry.slug}

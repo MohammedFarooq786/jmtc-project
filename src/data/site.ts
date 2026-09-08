@@ -83,7 +83,9 @@ export const tradingContent = {
 
 import harmanProfessionalLogo from "@/assets/brands/harman-professional.png";
 import jblByHarmanLogo from "@/assets/brands/harman-family/jbl-by-harman.png";
+import fluxAudioLogo from "@/assets/brands/harman-family/flux.png";
 import akgByHarmanLogo from "@/assets/brands/harman-family/akg.png";
+import martinProfessionalLogo from "@/assets/brands/harman-family/martin.png";
 import bssByHarmanLogo from "@/assets/brands/harman-family/bss.png";
 import crownByHarmanLogo from "@/assets/brands/harman-family/crown.png";
 import soundcraftByHarmanLogo from "@/assets/brands/harman-family/soundcraft.png";
@@ -91,24 +93,72 @@ import dbxByHarmanLogo from "@/assets/brands/harman-family/dbx.png";
 import lexiconByHarmanLogo from "@/assets/brands/harman-family/lexicon.png";
 import audioVisualImg from "@/assets/trading/audio-visual.png";
 import mepEngineeringHeaderImg from "@/assets/industries/mep-engineering-header.jpg";
+import civilEngineeringHeaderImg from "@/assets/industries/civil-engineering-services.jpg";
+import civilOfferContractingImg from "@/assets/industries/civil-offer-contracting.jpg";
+import civilOfferScaffoldingImg from "@/assets/industries/civil-offer-scaffolding.jpg";
+import civilOfferDewatering1Img from "@/assets/industries/civil-offer-dewatering-1.jpg";
+import civilOfferDewatering2Img from "@/assets/industries/civil-offer-dewatering-2.jpg";
+import civilOfferMechanicalFabricationImg from "@/assets/industries/civil-offer-mechanical-fabrication.jpg";
 import mepPageElectricalImg from "@/assets/industries/mep-page-electrical.jpg";
 import mepPagePlantImg from "@/assets/industries/mep-page-plant.jpg";
 import mepPagePlumbingImg from "@/assets/industries/mep-page-plumbing.jpg";
 import mepPageHvacImg from "@/assets/industries/mep-page-hvac.jpg";
 import mepServiceMechanicalImg from "@/assets/industries/mep-service-mechanical.jpg";
-import jbl3153 from "@/assets/cinema/jbl-3153.png";
-import jbl3181f from "@/assets/cinema/jbl-3181f.png";
-import crownXlc21300 from "@/assets/cinema/crown-xlc-21300.png";
-import siPerformer3 from "@/assets/cinema/si-performer-3.png";
-import pendantSubwoofer from "@/assets/cinema/pendant-subwoofer.png";
-import bssVe330 from "@/assets/cinema/bss-ve-330.png";
+import industrialProjectsMaintenanceImg from "@/assets/industries/industrial-projects-maintenance.jpg";
+import industrialOfferOperationMaintenanceImg from "@/assets/industries/industrial-offer-operation-maintenance.jpg";
+import industrialOfferAmcImg from "@/assets/industries/industrial-offer-amc.png";
+import industrialOfferUtilityImg from "@/assets/industries/industrial-offer-utility.jpg";
+import industrialOfferRollingShutterImg from "@/assets/industries/industrial-offer-rolling-shutter.jpg";
+import dewateringPumpsImg from "@/assets/industries/dewatering-pumps.jpg";
+import tradingImg from "@/assets/trading.jpg";
+import eiaProductsImg from "@/assets/industries/electrical-instrumentation.jpg";
+import safetyPpeHeaderImg from "@/assets/industries/safety-ppe.jpg";
+import {
+  electricalProtectionProducts,
+  instrumentationAutomationProducts,
+  processControlInstruments,
+} from "@/data/eia-catalog";
+import {
+  audioVideoSystems,
+  dewateringSupplyItems,
+  electricalComponents,
+  generatorsAndTowerLights,
+  mechanicalIndustrialTools,
+  safetyPpeProducts,
+} from "@/data/material-supply-catalog";
+import racorsLogo from "@/assets/brands/racors.png";
+import {
+  safetreeDisposableProducts,
+  safetreePpeProducts,
+  safetreeRoadSafetyProducts,
+} from "@/data/safetree-catalog";
+import {
+  racorsDewateringAccessories,
+  racorsDewateringApplications,
+  racorsDewateringPumps,
+} from "@/data/dewatering-catalog";
+import type { CatalogProduct } from "@/data/dewatering-catalog";
+import {
+  akgProducts,
+  bssProducts,
+  crownProducts,
+  dbxProducts,
+  fluxProducts,
+  jblProducts,
+  lexiconProducts,
+  martinProducts,
+  soundcraftProducts,
+} from "@/data/harman-catalog";
 
 export type ServiceOfferItem = {
   id: string;
   title: string;
   description: string;
-  image: string;
+  paragraphs?: string[];
+  image?: string;
+  images?: string[];
   imageAlt?: string;
+  imageContain?: boolean;
 };
 
 export type Industry = {
@@ -124,13 +174,20 @@ export type Industry = {
   contentHeading?: string;
   logo?: string;
   logoAlt?: string;
-  partnerLogos?: { name: string; src: string }[];
+  partnerLogos?: { name: string; src: string; href?: string }[];
   headerImage?: string;
   galleryImages?: string[];
   serviceItems?: ServiceOfferItem[];
   paragraphs?: string[];
   closing?: string;
+  /** Opening paragraph shown on the industry page body */
+  lead?: string;
+  approachHeading?: string;
+  approach?: string;
+  reasonsHeading?: string;
+  reasons?: { title: string; description: string }[];
   cinemaExpansion?: {
+    eyebrow?: string;
     products?: {
       model: string;
       name: string;
@@ -138,14 +195,20 @@ export type Industry = {
       formats: string[];
     }[];
   };
+  catalog?: {
+    eyebrow: string;
+    intro?: string;
+    products: CatalogProduct[];
+  }[];
+  applications?: string[];
 };
 
 export const industries: Industry[] = [
   {
-    title: "MEP Engineering Services",
+    title: "MEP & Utility Services",
     slug: "mep-engineering-services",
     summary:
-      "HVAC, firefighting, electrical installations, ELV systems, and plumbing services, ensuring efficient and reliable infrastructure.",
+      "Reliable electrical, mechanical, air conditioning, and utility services tailored to project requirements.",
     headerImage: mepEngineeringHeaderImg,
     contentHeading: "Mechanical, Electrical, and Plumbing Engineering Services",
     galleryImages: [
@@ -197,89 +260,320 @@ export const industries: Industry[] = [
     ],
   },
   {
-    title: "Infrastructure",
-    slug: "infrastructure",
+    title: "Civil Engineering Contracting Works",
+    slug: "civil-engineering-services",
     summary:
-      "Reliable infrastructure supporting efficient industrial supply, contracting, and project execution.",
+      "Professional civil engineering and contracting services focused on reliable project execution and quality workmanship.",
+    headerImage: civilEngineeringHeaderImg,
+    subheading: "Reliable Contracting. Quality Execution.",
+    lead:
+      "We provide professional civil engineering contracting services tailored to project requirements, with a strong focus on quality, safety, and timely delivery. Our approach combines technical capability, professional execution, and responsive project support to meet the needs of our clients.",
+    approachHeading: "Our Approach",
+    approach:
+      "From project requirements through execution, we focus on delivering reliable contracting solutions while maintaining high standards of quality and safety. Our team works closely with clients to ensure efficient coordination and dependable project delivery.",
+    reasonsHeading: "Why Choose Our Civil Contracting Services?",
+    reasons: [
+      {
+        title: "Quality Execution",
+        description:
+          "Professional contracting with attention to project requirements and standards.",
+      },
+      {
+        title: "Safety Focused",
+        description:
+          "Safety is integrated into our project execution and working practices.",
+      },
+      {
+        title: "Timely Delivery",
+        description:
+          "We are committed to efficient execution and dependable project completion.",
+      },
+      {
+        title: "Client Focused",
+        description:
+          "Solutions are tailored to client needs with responsive project support.",
+      },
+    ],
+    closing:
+      "Building reliable project outcomes through professional contracting, quality execution, and dependable service.",
+    serviceItems: [
+      {
+        id: "civil-engineering-contracting-works",
+        title: "Civil Engineering Contracting Works",
+        description:
+          "We provide professional civil engineering contracting services tailored to the specific requirements of each project. Our approach focuses on quality workmanship, safe working practices, efficient coordination, and reliable project execution. We work closely with clients to understand project requirements and deliver practical contracting solutions with a strong commitment to service quality and timely completion.",
+        paragraphs: [
+          "We provide professional civil engineering contracting services tailored to the specific requirements of each project. Our approach focuses on quality workmanship, safe working practices, efficient coordination, and reliable project execution. We work closely with clients to understand project requirements and deliver practical contracting solutions with a strong commitment to service quality and timely completion.",
+          "Our contracting capabilities are supported by technical expertise and experience across industrial project environments, enabling us to provide dependable support throughout the execution process. From planning and coordination to on-site execution and project support, we maintain a client-focused approach designed to deliver consistent and reliable results.",
+        ],
+        image: civilOfferContractingImg,
+        imageAlt: "MJTC engineer on a civil contracting construction site",
+      },
+      {
+        id: "scaffolding-services",
+        title: "Scaffolding Services",
+        description:
+          "Our scaffolding services are designed to provide dependable temporary access and support for construction and maintenance activities across industrial and commercial projects. We understand that effective scaffolding plays an important role in maintaining safe and efficient site operations, allowing project teams to carry out work with better accessibility and coordination. Our services are delivered with careful attention to project requirements, professional execution, safety, and overall site efficiency.",
+        paragraphs: [
+          "Our scaffolding services are designed to provide dependable temporary access and support for construction and maintenance activities across industrial and commercial projects. We understand that effective scaffolding plays an important role in maintaining safe and efficient site operations, allowing project teams to carry out work with better accessibility and coordination. Our services are delivered with careful attention to project requirements, professional execution, safety, and overall site efficiency.",
+          "By integrating scaffolding support with our wider contracting capabilities, we help clients maintain smooth project progress while meeting the required quality and safety expectations.",
+        ],
+        image: civilOfferScaffoldingImg,
+        imageAlt: "MJTC scaffolding on a construction site with safety-first site practice",
+      },
+      {
+        id: "dewatering-pump-rental-and-supply",
+        title: "Dewatering Pump Rental & Supply",
+        description:
+          "We provide dependable dewatering pump rental and supply solutions to support industrial, construction, and project requirements. Our range of dewatering equipment is selected to deliver efficient water removal and reliable performance across different applications. With a focus on quality, responsive service, and practical project support, we help clients maintain effective site operations and minimize water-related disruptions.",
+        image: civilOfferDewatering1Img,
+        images: [civilOfferDewatering1Img, civilOfferDewatering2Img],
+        imageAlt: "Dewatering pump in use on an MJTC construction site",
+      },
+      {
+        id: "mechanical-works-and-fabrication",
+        title: "Mechanical Works & Fabrication",
+        description:
+          "We provide professional mechanical works and fabrication services tailored to industrial and project requirements. Our capabilities support construction, maintenance, and industrial operations, with a focus on quality workmanship, reliable execution, and efficient project delivery. We work closely with clients to understand their requirements and provide practical mechanical solutions that support smooth and dependable operations.",
+        paragraphs: [
+          "We provide professional mechanical works and fabrication services tailored to industrial and project requirements. Our capabilities support construction, maintenance, and industrial operations, with a focus on quality workmanship, reliable execution, and efficient project delivery. We work closely with clients to understand their requirements and provide practical mechanical solutions that support smooth and dependable operations.",
+          "Our mechanical contracting capabilities are supported by our wider industrial trading and technical services, enabling us to coordinate project requirements and provide responsive support throughout execution. With a strong commitment to quality, safety, and customer satisfaction, we aim to deliver reliable results across every project.",
+        ],
+        image: civilOfferMechanicalFabricationImg,
+        imageAlt: "MJTC technicians welding and fabricating industrial pipework on site",
+      },
+    ],
   },
-  { title: "Structural Engineering Services", slug: "structural-engineering-services" },
-  { title: "Civil Engineering Services", slug: "civil-engineering-services" },
   {
-    title: "Industrial Engineering & Maintenance Services",
+    title: "Industrial Projects & Maintenance",
     slug: "industrial-engineering-maintenance-services",
+    summary:
+      "Reliable operation, maintenance, and support services for industrial projects and plant facilities.",
+    headerImage: industrialProjectsMaintenanceImg,
+    serviceItems: [
+      {
+        id: "operation-and-maintenance",
+        title: "Operation & Maintenance",
+        description:
+          "We provide reliable operation and maintenance services to support the continued performance and efficiency of industrial facilities and project operations. Our services are focused on maintaining equipment and systems, addressing operational requirements, and supporting safe and dependable day-to-day performance. With a professional and responsive approach, we work to help clients maintain smooth operations, reduce disruptions, and achieve consistent service reliability.",
+        image: industrialOfferOperationMaintenanceImg,
+        imageAlt: "MJTC technician operating industrial water treatment and membrane systems",
+      },
+      {
+        id: "annual-maintenance-contracting-services",
+        title: "Annual Maintenance Contracting Services",
+        description:
+          "Our annual maintenance contracting services are designed to provide dependable ongoing support for client facilities and operational requirements. We focus on consistent service, timely maintenance, safety, and professional coordination to help maintain reliable day-to-day operations. Through structured maintenance support and responsive service, we work to minimize disruptions and support the continued performance of client facilities.",
+        image: industrialOfferAmcImg,
+        imageAlt: "Annual maintenance contracting across mechanical, electrical, HVAC, and facility systems",
+        imageContain: true,
+      },
+      {
+        id: "industrial-projects-and-plant-maintenance",
+        title: "Industrial Projects & Plant Maintenance",
+        description:
+          "We provide maintenance and contracting support for industrial projects and plant facilities, with a focus on reliable execution, safety, and efficient project coordination. Our approach is tailored to project requirements and supports clients throughout ongoing maintenance and operational activities. We combine technical capability with responsive service to help maintain smooth and dependable industrial operations.",
+        image: industrialOfferAmcImg,
+        imageAlt: "Industrial projects and plant maintenance across mechanical, electrical, HVAC, and facility systems",
+        imageContain: true,
+      },
+      {
+        id: "mechanical-works-and-fabrication-industrial",
+        title: "Mechanical Works & Fabrication",
+        description:
+          "Our mechanical works and fabrication services support a range of industrial and project requirements, with an emphasis on quality workmanship, safety, and reliable execution. We provide practical mechanical contracting support tailored to specific project needs while maintaining professional standards throughout the work. Our focus is on delivering dependable results and supporting efficient project completion.",
+      },
+      {
+        id: "general-electrical-works",
+        title: "General Electrical Works",
+        description:
+          "We provide general electrical works as part of our integrated contracting services, supporting project and facility requirements with a focus on safety, quality, and reliable execution. Our electrical support is tailored to client requirements and coordinated with other project activities to promote efficient and dependable operations.",
+      },
+      {
+        id: "utility-services",
+        title: "Utility Services",
+        description:
+          "Our utility services support the operational and project requirements of industrial and commercial facilities. We provide dependable contracting support with attention to safety, efficiency, and timely execution, helping clients maintain essential facility operations and project progress.",
+        image: industrialOfferUtilityImg,
+        imageAlt: "MJTC technician servicing a utility pump and piping system",
+      },
+      {
+        id: "rolling-shutter-installation-and-maintenance",
+        title: "Rolling Shutter Installation & Maintenance",
+        description:
+          "We provide rolling shutter installation and maintenance services as part of our contracting capabilities, supporting reliable access and continued operation of shutter systems. Our services focus on professional installation, maintenance support, safety, and responsive service to meet client requirements and maintain dependable performance.",
+        image: industrialOfferRollingShutterImg,
+        imageAlt: "MJTC technician installing and servicing an industrial rolling shutter",
+      },
+    ],
   },
-  { title: "Equipment Renting Service", slug: "equipment-renting-service" },
-  { title: "Material Supply", slug: "material-supply" },
   {
-    title: "Professional Sound and Engineering",
+    title: "Dewatering Equipment & Rental",
+    slug: "equipment-renting-service",
+    summary:
+      "Reliable dewatering pump supply, rental, and project support for industrial and construction applications.",
+    heading: "Dewatering Equipment & Rental",
+    subheading: "Official Racors Dewatering Pump Representative in Bahrain",
+    logo: racorsLogo,
+    logoAlt: "Racors — Sales, Rentals, Dewatering Projects",
+    headerImage: dewateringPumpsImg,
+    paragraphs: [
+      "Mohifar Jahan Trading and Contracting is the official representative in Bahrain for Racors dewatering pumps, and we supply the accessories needed to support dewatering operations on site.",
+      "Mohifar Jahan Trading and Contracting provides dewatering pump rental and supply solutions for a wide range of project and water-management requirements. Our offering includes Racors dewatering pumps ranging from 2-inch to 24-inch, with different configurations available to suit varying flow and head requirements. The equipment range is designed for dependable operation, durability, efficiency, and ease of maintenance across demanding dewatering applications.",
+      "Alongside pump supply and rental, we provide the required accessories, fittings, hoses, pump spares, and related equipment needed to support dewatering operations. This allows us to provide a more complete equipment solution based on the requirements of each project.",
+    ],
+    applications: racorsDewateringApplications,
+    catalog: [
+      {
+        eyebrow: "Racors Dewatering Pumps",
+        products: racorsDewateringPumps,
+      },
+      {
+        eyebrow: "Accessories & Spares",
+        products: racorsDewateringAccessories,
+      },
+    ],
+    closing:
+      "Mohifar Jahan Trading and Contracting — Official Racors Dewatering Pump Representative in Bahrain.",
+  },
+  {
+    title: "Industrial Material Supply",
+    slug: "material-supply",
+    summary:
+      "Reliable supply of industrial materials and equipment to support diverse project and operational requirements.",
+    heading: "Industrial Material Supply",
+    headerImage: tradingImg,
+    contentHeading: "What We Supply",
+    paragraphs: [
+      "We provide a broad range of industrial materials, equipment, and components to support the requirements of commercial, industrial, and project-based applications. Our trading portfolio includes electrical components, mechanical industrial materials, dewatering pumps and accessories, safety and PPE products, mechanical valves and couplings, generators and tower lights, as well as audio and video systems.",
+      "Our focus is on supplying dependable products from established manufacturers while maintaining product quality, competitive pricing, timely delivery, and responsive customer service. We work closely with clients to understand their requirements and provide suitable products for their specific applications, supporting everything from individual equipment requirements to broader project needs.",
+    ],
+    catalog: [
+      {
+        eyebrow: "Electrical Components",
+        intro: "Electrical supplies and components for industrial applications.",
+        products: electricalComponents,
+      },
+      {
+        eyebrow: "Mechanical Industrial Tools",
+        intro:
+          "Mechanical materials and related products for industrial and project requirements.",
+        products: mechanicalIndustrialTools,
+      },
+      {
+        eyebrow: "Dewatering Pumps & Accessories",
+        intro:
+          "Dewatering equipment and supporting accessories for project applications.",
+        products: dewateringSupplyItems,
+      },
+      {
+        eyebrow: "Safety & PPE Products",
+        intro:
+          "Safety equipment and PPE supporting workplace protection requirements.",
+        products: safetyPpeProducts,
+      },
+      {
+        eyebrow: "Generators & Tower Lights",
+        intro:
+          "Power-generation and lighting equipment for project and site requirements.",
+        products: generatorsAndTowerLights,
+      },
+      {
+        eyebrow: "Audio & Video Systems",
+        intro: "Professional audio, video, and related system components.",
+        products: audioVideoSystems,
+      },
+    ],
+  },
+  {
+    title: "Electrical, Instrumentation & Automation",
+    slug: "structural-engineering-services",
+    summary:
+      "Integrated electrical, instrumentation, and automation solutions designed for efficient industrial operations.",
+    heading: "Electrical, Instrumentation & Automation",
+    headerImage: eiaProductsImg,
+    contentHeading: "What We Supply",
+    paragraphs: [
+      "We provide electrical, instrumentation, and automation solutions to support industrial, commercial, and infrastructure requirements. Our portfolio includes a wide range of electrical components, instrumentation devices, sensors, transmitters, switches, controllers, displays, and monitoring solutions, helping clients meet the technical and operational needs of their projects.",
+      "Our instrumentation and automation offering covers applications such as level measurement, pressure sensing, remote monitoring, control systems, and hazardous-area instrumentation, while our electrical range includes components for protection, switching, measurement, and control. We work with established manufacturers and provide products selected to meet project requirements with a focus on quality, reliability, and responsive service.",
+    ],
+    catalog: [
+      {
+        eyebrow: "Electrical Components",
+        intro:
+          "Components for protection, switching, measurement, and control in industrial and commercial electrical systems.",
+        products: electricalProtectionProducts,
+      },
+      {
+        eyebrow: "Process Control Instruments",
+        intro:
+          "Equipment for measuring and controlling industrial process variables, including indicators, scanners, totalizers, isolators and displays.",
+        products: processControlInstruments,
+      },
+      {
+        eyebrow: "Instrumentation & Automation",
+        intro:
+          "Sensors, transmitters, switches, controllers and displays for level, pressure, monitoring and control applications.",
+        products: instrumentationAutomationProducts,
+      },
+    ],
+  },
+  {
+    title: "Audio & Video Systems",
     slug: "professional-sound-and-engineering",
     summary:
-      "Professional audio, video, and AV systems from trusted global brands, ensuring exceptional sound quality, seamless integration, and reliable performance.",
+      "Professional audio and video solutions, including sound systems, visual equipment, and integrated AV solutions.",
     heading: "HARMAN Professional Solutions",
     subheading: "Official HARMAN Professional Solutions Representative in Bahrain",
     logo: harmanProfessionalLogo,
     logoAlt: "HARMAN, a Samsung company",
     partnerLogos: [
-      { name: "JBL", src: jblByHarmanLogo },
-      { name: "Lexicon", src: lexiconByHarmanLogo },
-      { name: "Soundcraft", src: soundcraftByHarmanLogo },
-      { name: "dbx", src: dbxByHarmanLogo },
-      { name: "Crown", src: crownByHarmanLogo },
-      { name: "AKG", src: akgByHarmanLogo },
-      { name: "BSS", src: bssByHarmanLogo },
+      { name: "JBL", src: jblByHarmanLogo, href: "https://jblpro.com/en" },
+      { name: "FLUX", src: fluxAudioLogo, href: "https://www.flux.audio/" },
+      { name: "AKG", src: akgByHarmanLogo, href: "https://www.akg.com/country-selector?geoip=false" },
+      { name: "Martin", src: martinProfessionalLogo, href: "https://www.martin.com/en" },
+      { name: "BSS", src: bssByHarmanLogo, href: "https://bssaudio.com/en" },
+      { name: "Crown", src: crownByHarmanLogo, href: "https://www.crownaudio.com/en" },
+      { name: "dbx", src: dbxByHarmanLogo, href: "https://dbxpro.com/en" },
+      { name: "Lexicon", src: lexiconByHarmanLogo, href: "https://lexiconpro.com/en/product_families" },
+      { name: "Soundcraft", src: soundcraftByHarmanLogo, href: "https://www.soundcraft.com/en" },
     ],
     headerImage: audioVisualImg,
     paragraphs: [
       "Mohifar Jahan Trading and Contracting is proud to be the official representative of HARMAN Professional Solutions in Bahrain, providing access to world-class professional audio and AV solutions from some of the industry's most trusted brands.",
-      "Our HARMAN portfolio includes JBL Professional, AKG, Crown, Soundcraft, Studer, BSS, dbx, DigiTech, and Lexicon, offering advanced solutions for commercial, hospitality, entertainment, corporate, and other professional applications.",
+      "Our portfolio includes JBL Professional, FLUX::AUDIO, AKG, Martin Professional, BSS, Crown, dbx, Lexicon, and Soundcraft, offering solutions for commercial, hospitality, entertainment, corporate, and other professional applications.",
       "With HARMAN's globally recognized technology and our local expertise, we provide customers in Bahrain with reliable products, professional support, and tailored audio solutions designed to meet the demands of modern projects.",
     ],
     closing: "Mohifar Jahan Trading and Contracting — Your Trusted HARMAN Partner in Bahrain.",
-    cinemaExpansion: {
-      products: [
-        {
-          model: "3153",
-          name: "Professional 3-Way Main Cinema Screen Speaker",
-          image: jbl3153,
-          formats: ["Premium Large Format", "Large Format"],
-        },
-        {
-          model: "3181F",
-          name: "Professional High-Power Cinema Subwoofer",
-          image: jbl3181f,
-          formats: ["Premium Large Format", "Large Format"],
-        },
-        {
-          model: "XLC 21300",
-          name: "2-Channel 1,300-Watt Power Amplifier for Pro Cinema Applications",
-          image: crownXlc21300,
-          formats: [
-            "Premium Large Format",
-            "Large Format",
-            "Medium Format",
-            "Small Format",
-          ],
-        },
-        {
-          model: "Si Performer 3",
-          name: "Digital mixer with built-in automated lighting controller",
-          image: siPerformer3,
-          formats: [],
-        },
-        {
-          model: "Pendant Subwoofer with Crossover",
-          name: "Pendant Subwoofer with Crossover",
-          image: pendantSubwoofer,
-          formats: [],
-        },
-        {
-          model: "VE-330",
-          name: "4K60 H.26x/Dante AV-H & 1080p H.26x Dual-Stream Encoder with USB Audio and Video",
-          image: bssVe330,
-          formats: [],
-        },
-      ],
-    },
+    catalog: [
+      { eyebrow: "JBL Professional", products: jblProducts },
+      { eyebrow: "FLUX::AUDIO", products: fluxProducts },
+      { eyebrow: "AKG", products: akgProducts },
+      { eyebrow: "Martin Professional", products: martinProducts },
+      { eyebrow: "BSS Audio", products: bssProducts },
+      { eyebrow: "Crown Audio", products: crownProducts },
+      { eyebrow: "dbx", products: dbxProducts },
+      { eyebrow: "Lexicon", products: lexiconProducts },
+      { eyebrow: "Soundcraft", products: soundcraftProducts },
+    ],
+  },
+  {
+    title: "Safety PPE & Engineering Consumables",
+    slug: "infrastructure",
+    summary:
+      "Quality safety equipment, PPE, and engineering consumables supporting safe and efficient project operations.",
+    heading: "Safety PPE & Engineering Consumables",
+    headerImage: safetyPpeHeaderImg,
+    paragraphs: [
+      "We supply a comprehensive range of safety PPE and engineering consumables designed to support workplace protection across industrial, commercial, and project environments. Our product range includes eye, face, respiratory, foot, head, hearing, hand, and body protection, helping clients meet the safety requirements of different working conditions.",
+      "Our safety offering includes safety glasses, welding goggles, face shields, welding hand shields, masks, half and full-face masks, SCBA equipment, safety shoes and boots, safety helmets, climbing helmets, fire helmets, ear plugs, ear muffs, cotton and latex gloves, fingertip gloves, safety vests, high-visibility jackets, and disposable coveralls.",
+      "We focus on providing practical safety solutions suited to project and operational requirements, with an emphasis on product quality, reliable supply, and responsive service. This allows us to support clients with essential PPE and safety products across a wide range of work environments.",
+    ],
+    catalog: [
+      { eyebrow: "Personal Protective Equipment", products: safetreePpeProducts },
+      { eyebrow: "Disposable Items", products: safetreeDisposableProducts },
+      { eyebrow: "Road Safety", products: safetreeRoadSafetyProducts },
+    ],
   },
 ];
 

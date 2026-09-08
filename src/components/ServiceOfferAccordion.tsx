@@ -3,14 +3,9 @@ import { Minus, Plus } from "lucide-react";
 import { useId, useState } from "react";
 import { DualRule } from "@/components/SectionHeading";
 import { cn } from "@/lib/utils";
+import type { ServiceOfferItem } from "@/data/site";
 
-export type ServiceOfferItem = {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  imageAlt?: string;
-};
+export type { ServiceOfferItem };
 
 export function ServiceOfferAccordion({
   heading = "What We Offer",
@@ -62,6 +57,11 @@ export function ServiceOfferAccordion({
         {items.map((item, index) => {
           const isOpen = openId === item.id;
           const showImage = loadedIds.has(item.id);
+          const photos = item.images?.length
+            ? item.images
+            : item.image
+              ? [item.image]
+              : [];
 
           return (
             <AccordionPrimitive.Item
@@ -97,23 +97,68 @@ export function ServiceOfferAccordion({
 
               <AccordionPrimitive.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down motion-reduce:animate-none">
                 <div className="bg-accent px-4 pb-8 pt-1 text-accent-foreground md:px-6 md:pb-10">
-                  <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12">
-                    <p className="max-w-xl text-base leading-relaxed text-white/90 md:text-lg">
-                      {item.description}
-                    </p>
-                    <div className="aspect-[5/4] w-full overflow-hidden bg-brand/25">
-                      {showImage && (
-                        <img
-                          src={item.image}
-                          alt={item.imageAlt ?? item.title}
-                          width={1200}
-                          height={960}
-                          loading={index === 0 && initial === item.id ? "eager" : "lazy"}
-                          decoding="async"
-                          className="h-full w-full object-cover offer-image-in motion-reduce:animate-none"
-                        />
+                  <div
+                    className={
+                      photos.length > 0
+                        ? "grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]"
+                        : "grid items-start"
+                    }
+                  >
+                    <div>
+                      {(item.paragraphs?.length ? item.paragraphs : [item.description]).map(
+                        (paragraph, paragraphIndex) => (
+                          <p
+                            key={paragraph.slice(0, 48)}
+                            className={`max-w-3xl text-base leading-relaxed text-white/90 md:text-lg ${
+                              paragraphIndex > 0 ? "mt-5" : ""
+                            }`}
+                          >
+                            {paragraph}
+                          </p>
+                        ),
                       )}
                     </div>
+                    {photos.length > 0 && (
+                      <div
+                        className={
+                          photos.length > 1
+                            ? "grid max-w-md grid-cols-2 gap-3 lg:max-w-none"
+                            : item.imageContain
+                              ? "mx-auto w-full max-w-[18rem] overflow-hidden lg:mx-0 lg:max-w-none"
+                              : "mx-auto w-full max-w-[18rem] overflow-hidden bg-brand/25 lg:mx-0 lg:max-w-none"
+                        }
+                      >
+                        {showImage &&
+                          photos.map((src, imageIndex) => (
+                            <div
+                              key={src}
+                              className={`aspect-[4/3] w-full overflow-hidden ${
+                                item.imageContain ? "bg-transparent" : "bg-brand/25"
+                              }`}
+                            >
+                              <img
+                                src={src}
+                                alt={
+                                  item.imageAlt
+                                    ? `${item.imageAlt}${imageIndex > 0 ? ` ${imageIndex + 1}` : ""}`
+                                    : item.title
+                                }
+                                width={1200}
+                                height={960}
+                                loading={
+                                  index === 0 && initial === item.id && imageIndex === 0
+                                    ? "eager"
+                                    : "lazy"
+                                }
+                                decoding="async"
+                                className={`h-full w-full offer-image-in motion-reduce:animate-none ${
+                                item.imageContain ? "object-contain p-2" : "object-cover"
+                              }`}
+                              />
+                            </div>
+                          ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </AccordionPrimitive.Content>
